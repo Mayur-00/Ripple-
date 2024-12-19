@@ -22,7 +22,7 @@ export const signup = async (req, res) => {
             return res.status(400).json({ message: "user already exist please login" })
         };
         if (existingUser1) {
-            return res.status(400).json({ message: "userName already exist please change the username" })
+            return res.status(400).json({ message: "userName already taken please change the username" });
         };
 
         const salt = await bcrypt.genSalt(10);
@@ -35,6 +35,8 @@ export const signup = async (req, res) => {
             password: hashedpass,
         },
         );
+
+        // await user.save();
 
         if (user) {
             generateTokens(user._id, res)
@@ -65,13 +67,14 @@ export const login = async (req, res) => {
         const user = await User.findOne({ userName });
 
         if (!user) {
-            res.status(404).json({ message: "invalid User Credentials" });
+           return res.status(404).json({ message: "invalid User Credentials" });
         };
 
         const isPasswordIsCorrect = bcrypt.compare(password, user.password);
 
         if (!isPasswordIsCorrect) {
-            res.status(401).json({ message: "invalid User Credentials" });
+           return res.status(401).json({ message: "invalid User Credentials" });
+            console.log("invalid User Credentials")
         };
 
         generateTokens(user._id, res);
