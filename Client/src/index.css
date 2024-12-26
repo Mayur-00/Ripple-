@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+#navbar::-webkit-scrollbar{
+    display: none;
+}
+
+#tasklist::-webkit-scrollbar{
+    display: none;
+
+}

@@ -13,7 +13,7 @@ export const createPost = async (req,res) => {
         const post = await Post.create({
             auther:userid,
             postContent:content,
-            postImage:uploadResponse.secure_url
+            postImage:uploadResponse.secure_url || ""
         });
 
         const user = await User.findById(userid);
@@ -29,4 +29,21 @@ export const createPost = async (req,res) => {
         return res.status(500).json({message:"Internal server error!"});
         
     };
+
+
 };
+
+
+export const getPosts = async (req,res) => {
+    const userid = req.user._id;
+    try {
+        const user = await User.findById(userid).populate('posts'); 
+        res.setHeader('X-Custom-Header', 'value'); 
+        res.status(200).json(user.posts); 
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error fetching user posts' });
+        return res.status(500).json({message:"Internal server error!"});
+      } 
+
+    };

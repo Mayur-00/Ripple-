@@ -7,6 +7,7 @@ import ProfilePage from './pages/ProfilePage.jsx'
 import { useAuthStore } from './store/useAuthStore.js'
 import {Loader} from "lucide-react"
 import {Toaster} from "react-hot-toast"
+import EditPage from './pages/EditPage.jsx'
 
 function App() {
 
@@ -34,7 +35,8 @@ function App() {
           <Route path='/' element={ authUser? <HomePage/> : <Navigate to="/login"/>} />
           <Route path='/Login' element={!authUser? <LoginPage/> : <Navigate to="/"/>} />
           <Route path='/Signup' element={!authUser ? <SignupPage/> : <Navigate to="/"/>} />
-          <Route path='/Profile:id' element={ authUser ? <ProfilePage/>: <Navigate to="/login"f/>} />
+          <Route path='/Profile' element={ authUser ? <ProfilePage/>: <Navigate to="/login"/>} />
+          <Route path='/EditProfile' element={ authUser ? <EditPage />: <Navigate to="/login"/>} />
 
         </Routes>
         <Toaster />

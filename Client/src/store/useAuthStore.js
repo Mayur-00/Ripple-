@@ -69,5 +69,39 @@ export const useAuthStore = create((set)=>({
             toast.error("An Error Occured While Logging Out");
         
         }
-    }
+    },
+    updatePhoto: async (data) => {
+        set({ isUpdatingProfile: true });
+        try {
+          const res = await axiosInstanace.put("/user/update-profilePic", data);
+          set({ authUser: res.data })
+          toast.success("Profile Picture Updated SuccessFully")
+        } catch (error) {
+          toast.error(error);
+          console.log("error in update profile function :" + error);
+    
+    
+        }
+        finally {
+          set({ isUpdatingProfile: false })
+        }
+    
+      },
+    updatebio: async (data) => {
+        set({ isUpdatingProfile: true });
+        try {
+          const res = await axiosInstanace.put("/user/update-bio", data);
+          set({ authUser: res.data })
+          toast.success("Profile bio Updated SuccessFully")
+        } catch (error) {
+          toast.error(error);
+          console.log("error in update profile function :" + error);
+    
+    
+        }
+        finally {
+          set({ isUpdatingProfile: false })
+        }
+    
+      },
 }));
