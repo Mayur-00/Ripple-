@@ -32,7 +32,7 @@ const SlideBar = () => {
             <p className="text-white font-bold hidden md:block">Home</p>
         </div>
           </Link>
-          <Link to="/friends" className="w-4/5 ">
+          <Link to="/Explore" className="w-4/5 ">
         <div   className="w-4/5 h-16 flex gap-3 p-4 items-center hover:bg-zinc-800 cursor-pointer rounded-xl">
             <Compass className="text-white" />
             <p className="text-white hidden md:block">Explore</p>
@@ -46,7 +46,7 @@ const SlideBar = () => {
           <Plus className="text-white" />
           <p className="text-white hidden md:block">Create</p>
         </div>
-          <Link to={`profile`}className="flex gap-3 w-4/5 ">
+          <Link to="/Profile" className="flex gap-3 w-4/5 ">
         <div className="w-4/5 h-16 flex gap-3 p-4 items-center hover:bg-zinc-800 cursor-pointer rounded-xl">
             <CircleUser className="text-white size-"  />
             <p className="text-white hidden md:block">Profile</p>

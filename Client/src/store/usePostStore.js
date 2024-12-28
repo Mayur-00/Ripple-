@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export const usePostStore = create((set)=>({
     users: [],
     userPosts: [],
-    posts: [],
+    feedposts: [],
     selectedpost: null,
     isUsersLoading: false,
     isPostsLoading: false,
@@ -35,4 +35,36 @@ export const usePostStore = create((set)=>({
             set({isPostsLoading:false});
         }
     },
+
+
+    getPostsForFeed: async () => {
+        set({isPostsLoading:true});
+        try {
+            const res = await axiosInstanace.get("/user/posts");
+            console.log(res.data);
+            set({feedposts: res.data});
+            toast.success("Posts fetched successfully");
+        } catch (error) {
+            console.log(`ERROR IN GET POSTS FUNCTION: ${error}`);
+            toast.error("Failed to fetch posts");
+            
+        }finally{
+            set({isPostsLoading:false});
+        };
+    },
+
+    
+    likePost: async (postId)=>{
+
+        try {
+            const res = await axiosInstanace.put(`/user/like/${postId}`);
+            return res.data
+            toast.success("post Liked Succefully")
+        } catch (error) {
+            console.log("error in the likePost state function : ", error)
+            toast.error("an error while liking the post")
+            
+        }
+
+    }
 }))

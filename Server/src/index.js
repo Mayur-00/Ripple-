@@ -30,7 +30,9 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/user",postRoutes );
 
 app.use("/api/user",followRoutes );
+
 app.use("/api/user",updateRoutes);
+
 app.use("/api/user/", feedRoutes );
 app.use("/api/user", storyRoutes );
 

@@ -8,6 +8,7 @@ import { useAuthStore } from './store/useAuthStore.js'
 import {Loader} from "lucide-react"
 import {Toaster} from "react-hot-toast"
 import EditPage from './pages/EditPage.jsx'
+import ExplorePage from './pages/ExplorePage.jsx'
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
           <Route path='/Signup' element={!authUser ? <SignupPage/> : <Navigate to="/"/>} />
           <Route path='/Profile' element={ authUser ? <ProfilePage/>: <Navigate to="/login"/>} />
           <Route path='/EditProfile' element={ authUser ? <EditPage />: <Navigate to="/login"/>} />
+          <Route path='/Explore' element={ authUser ? <ExplorePage />: <Navigate to="/login"/>} />
 
         </Routes>
         <Toaster />

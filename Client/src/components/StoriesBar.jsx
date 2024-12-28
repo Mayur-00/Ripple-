@@ -4,7 +4,7 @@ const StoriesBar = () => {
   return (
     <nav
       id="navbar"
-      className="h-32 w-full flex items-center p-5 gap-5 overflow-x-auto"
+      className="h-32 w-full flex items-center p-5 gap-5 overflow-x-auto   backdrop-blur-xl bg-transparent bg-opacity-12   border-zinc-700"
     >
       <div
         id="border"

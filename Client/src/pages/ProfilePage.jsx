@@ -88,12 +88,9 @@ const ProfilePage = () => {
               <img
                 cloudName="diudwpbhj"
                 publicId={post.postImage}
-                src={post.postImage}
-                width="100%"
-                height="100%"
-                crop="fill"
+                src={post.postImage}  
                 dpr="auto"
-                className="object-cover"
+                className="object-cover h-full w-full "
                 alt={post.postImage}
               />
             </div>
