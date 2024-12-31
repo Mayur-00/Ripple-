@@ -104,4 +104,6 @@ export const useAuthStore = create((set)=>({
         }
     
       },
+      setAuthUser: (user) => set({ authUser: user }), // Update the entire user object
+
 }));

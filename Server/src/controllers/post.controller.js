@@ -26,6 +26,7 @@ export const createPost = async (req,res) => {
         
     } catch (error) {
         console.log(`ERROR IN CREATE POST FUNCTION: ${error}`);
+        console.log(`ERROR IN CREATE POST FUNCTION: ${JSON.stringify(error, null, 2)}`);
         return res.status(500).json({message:"Internal server error!"});
         
     };

@@ -14,7 +14,7 @@ export const usePostStore = create((set)=>({
         
         try {
             const res = await axiosInstanace.post("/user/createPost", data);
-            console.log(res.data)
+            // console.log(res.data)
             toast.success("Post created successfully")
         } catch (error) {
             toast.error("Failed to create post")
@@ -27,7 +27,7 @@ export const usePostStore = create((set)=>({
         try {
             set({isPostsLoading:true})
             const res = await axiosInstanace.get("/user/getPost" );
-            console.log(res.data)
+            // console.log(res.data)
             set({userPosts:res.data})
         } catch (error) {
             console.log(`ERROR IN CREATE POST FUNCTION: ${error}`);
@@ -41,12 +41,11 @@ export const usePostStore = create((set)=>({
         set({isPostsLoading:true});
         try {
             const res = await axiosInstanace.get("/user/posts");
-            console.log(res.data);
+            // console.log(res.data);
             set({feedposts: res.data});
-            toast.success("Posts fetched successfully");
         } catch (error) {
             console.log(`ERROR IN GET POSTS FUNCTION: ${error}`);
-            toast.error("Failed to fetch posts");
+            toast.error("Failed to get posts");
             
         }finally{
             set({isPostsLoading:false});

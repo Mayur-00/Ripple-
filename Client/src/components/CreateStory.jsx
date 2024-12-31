@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react";
-import { Image, Send, X } from "lucide-react";
-import { usePostStore } from "../store/usePostStore.js";
+import { usePostStore } from "../store/usePostStore";
+import { Image, X } from "lucide-react";
+import { useStoryStore } from "../store/useStoryStore";
 
-const CreatePost = ({ onClose }) => {
+const CreateStory = ({ onClose, data }) => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
 
-  const { createPost } = usePostStore();
+const {createStory,AuthUserStory} = useStoryStore()
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -32,20 +33,16 @@ const CreatePost = ({ onClose }) => {
 
   const handleCreatePost = async () => {
     try {
-      createPost({
-        content: text,
-        postImage: imagePreview,
-      });
-      setText("");
-      setImagePreview(null);
-      onClose();
+     await createStory({
+      image:imagePreview
+     })
     } catch (error) {
-      console.log(`ERROR IN CREATE POST FUNCTION: ${error}`);
+
+      console.log(`ERROR IN CREATE story FUNCTION: ${error}`);
     }
   };
-
   return (
-    <div className="fixed inset-0  flex items-center justify-center bg-black bg-opacity-50 z-50 ">
+    <div className="fixed inset-0  flex items-center justify-center bg-black bg-opacity-50 z-[99] ">
       <div className="bg-[white] text-white rounded-lg   w-[90%] md:w-[40%] overflow-hidden p-2 pt-0 ">
         <div className="flex w-[100%] h-[10%]  md:h-[15%]  mb-2 p-3 justify-between border-b-[1px] items-center border-zinc-500 ">
           <button
@@ -54,22 +51,16 @@ const CreatePost = ({ onClose }) => {
           >
             Cancel
           </button>
-          <h1>New Post</h1>
+          <h1 className="text-black font-bold">Create Story</h1>
           <button
             className="px-4 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             disabled={!text.trim() && !imagePreview}
             onClick={handleCreatePost}
           >
-            Post
+            Publish
           </button>
         </div>
         <form>
-          <textarea
-            className="w-full  h-52 md:min-h-32 p p-2 bg-zinc-400 rounded-md text-black outline-none mb-4"
-            placeholder="What's on your mind?"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          ></textarea>
           <div className="flex-1 flex gap-2">
             <input
               type="file"
@@ -81,38 +72,35 @@ const CreatePost = ({ onClose }) => {
 
             <button
               type="button"
-              className={` sm:flex btn btn-circle bg-black 
-          ${imagePreview ? "text-white" : "text-black"}`}
+              className={` sm:flex btn hover:bg-zinc-600 bg-zinc-500 h-[200px] w-[99%] `}
               onClick={() => fileInputRef.current?.click()}
             >
-              <Image className="size-[]" />
+              {imagePreview ? (
+            
+                  <div className="h-[100%] w-[100%] relative">
+                    <img
+                      src={imagePreview}
+                      alt="preview"
+                      className="w-full h-full object-cover rounded border border-zinc-700"
+                    />
+                    <button
+                      onClick={removeImage}
+                      className=" absolute top-1 right-1 w-5 h-5 rounded-full bg-base-300 
+                             flex items-center justify-center "
+                      type="button"
+                    >
+                      <X className="size-3" />
+                    </button>
+                  </div>
+         
+              ) : (<div>Click Here Upload Image</div>) }
+              
             </button>
           </div>
         </form>
-        <div className="flex w-[100px] h-[100px]">
-          {imagePreview && (
-            <div className="mb-3 flex items-center w-full h-full gap-2">
-              <div className="relative">
-                <img
-                  src={imagePreview}
-                  alt="preview"
-                  className="w-full h-full object-cover rounded-lg border border-zinc-700"
-                />
-                <button
-                  onClick={removeImage}
-                  className=" absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-base-300 
-                               flex items-center justify-center "
-                  type="button"
-                >
-                  <X className="size-3" />
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );
 };
 
-export default CreatePost;
+export default CreateStory;
