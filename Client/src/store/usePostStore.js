@@ -9,6 +9,10 @@ export const usePostStore = create((set)=>({
     selectedpost: null,
     isUsersLoading: false,
     isPostsLoading: false,
+    isLoadingComments:false,
+    isCreatingComment:false,
+    userComment:null,
+    allComments:[],
 
     createPost: async (data) => {
         
@@ -57,13 +61,47 @@ export const usePostStore = create((set)=>({
 
         try {
             const res = await axiosInstanace.put(`/user/like/${postId}`);
-            return res.data
             toast.success("post Liked Succefully")
+            return res.data
         } catch (error) {
             console.log("error in the likePost state function : ", error)
             toast.error("an error while liking the post")
             
         }
 
+    },
+
+    createComment: async (postid, comment) =>{
+        try {
+            set({isCreatingComment:true});
+            const res= await axiosInstanace.post(`/user/addComment/${postid}`,comment);
+            set({userComment:res.data.comment});
+            toast.success("commnet added successfully")
+
+
+        } catch (error) {
+            toast.error("unable to add comment");
+            console.log("error in create comment function", error);
+            
+        }finally{
+            set({isCreatingComment:false});
+        }
+    },
+
+    getComments: async (postId) =>{
+        try {
+            set({isLoadingComments:true});
+
+            const res = await axiosInstanace.get(`/user/getComments/${postId}`);
+            set({allComments:res.data.Comments});
+            toast.success("comments fetched successfully")
+
+        } catch (error) {
+            toast.error("unable to fetch comments")
+            console.log("error in getComments function", error)
+            
+        }finally{
+            set({isLoadingComments:false});
+        }
     }
 }))

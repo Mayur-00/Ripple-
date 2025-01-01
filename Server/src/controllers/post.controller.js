@@ -49,8 +49,6 @@ export const getPosts = async (req,res) => {
 
     };
 
-
-
     export const likePost = async (req, res) => {
       try {
           const userId = req.user._id;
@@ -83,4 +81,66 @@ export const getPosts = async (req,res) => {
       };
   
   
+  };
+
+
+  export const CreateComment = async (req, res) =>{
+    try {
+        const userId = req.user._id;
+        const postId = req.params;
+        const {comment} = req.body;
+    
+        if (!comment || comment.trim() === '') {
+            return res.status(400).json({ error: "Comment content cannot be empty." });
+        }
+    
+        const post = await Post.findById(postId);
+    
+        if (!post) {
+            return res.status(404).json({ error: "Post not found." });
+        }
+    
+    
+        const newComment ={
+            user:userId,
+            comment:comment,
+            createdAt:Date.now()
+        };
+    
+        post.comments.push(newComment);
+    
+        await post.save();
+    
+        res.status(200).json({message:"Comment Added Succesfully", comment:newComment});
+
+    } catch (error) {
+        res.status(500).json({message:"Internal Server Error"})
+        console.log("error in create Comment Function ", error)
+        
+    }
+
+
+
+    
+  };
+
+  export const GetCommnets = async (req,res) =>{
+    try {
+        const postid = req.params;
+
+        const post = await Post.findById(postid);
+
+        if (!post) {
+            return res.status(404).json({ error: "Post not found." });
+        }
+        const sorted = post.comments.sort({ createdAt: -1 })
+
+        res.status(200).json({message:"comments fetch success", Comments:sorted});
+
+
+    } catch (error) {
+        res.status(500).json({message:"internal server error"});
+        console.log("error in getCommnets function", error)
+        
+    }
   };

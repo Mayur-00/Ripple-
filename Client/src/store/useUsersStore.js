@@ -12,7 +12,7 @@ export const useUsersStore = create((set)=>({
 
 
 
-getSuggestedUsers : async ()=>{
+ getSuggestedUsers : async ()=>{
     try {
         set({isLoadingSuggestions:true})
         const res = await axiosInstanace.get("/user/suggestedUsers");
