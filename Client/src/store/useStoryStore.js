@@ -46,11 +46,11 @@ export const useStoryStore = create((set)=>({
             set({isGettingStorys:true});
             const res = await axiosInstanace.get("/user/MyStory");
             set({ AuthUserStory: res.data });
-            toast.success("storys fetched successfully")
+            // toast.success("storys fetched successfully")
             
         } catch (error) {
-            console.log("error in getStorys Function", error);
-            toast.error("fecthing storys failed")
+            // console.log("error in getStorys Function", error);
+            // toast.error("fecthing storys failed")
         }finally{
             set({isGettingStorys:false})
         }

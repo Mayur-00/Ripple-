@@ -74,7 +74,7 @@ export const usePostStore = create((set)=>({
     createComment: async (postid, comment) =>{
         try {
             set({isCreatingComment:true});
-            const res= await axiosInstanace.post(`/user/addComment/${postid}`,comment);
+            const res= await axiosInstanace.post(`/user/addComment/${postid}`,{comment});
             set({userComment:res.data.comment});
             toast.success("commnet added successfully")
 

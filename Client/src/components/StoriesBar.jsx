@@ -19,8 +19,8 @@ const StoriesBar = () => {
     }, [getStoryForAuthUser, getStorys])
     
 
-    console.log(AuthUserStory)
-    console.log(allStorys)
+    // console.log(AuthUserStory)
+    // console.log(allStorys)
   
 
   

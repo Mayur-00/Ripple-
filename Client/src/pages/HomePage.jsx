@@ -6,6 +6,8 @@ import { Heart, HeartOff, MessageCircle } from "lucide-react";
 import { usePostStore } from "../store/usePostStore";
 import { useUsersStore } from "../store/useUsersStore";
 import CreateStory from "../components/CreateStory";
+import ShowCommnets from "../components/ShowCommnets";
+import { useState } from "react";
 
 const HomePage = () => {
   const { feedposts, getPostsForFeed, likePost, isPostsLoading } =
@@ -20,7 +22,18 @@ const HomePage = () => {
     unFollowUser,
   } = useUsersStore();
 
-
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+  
+  const toggleFullScreen= (post) =>{
+    setSelectedPost(post)
+    setIsFullScreen(true)
+  };
+  
+  const closeFullScreen = ()=>{
+    setIsFullScreen(false)
+    setSelectedPost(null);
+  };
 
   const handleLike = (postId) => {
     likePost(postId).then(() => getPostsForFeed());
@@ -117,7 +130,7 @@ const HomePage = () => {
                   <p className="text-sm"> {`${post.likes.length} Likes`}</p>
                 </div>
                 <div>
-                  <button className="text-black">
+                  <button onClick={()=> toggleFullScreen(post)} className="text-black">
                     <MessageCircle className="size-8" />
                   </button>
                 </div>
@@ -130,7 +143,7 @@ const HomePage = () => {
         </div>
       </div>
       <SlideBar />
-
+      {isFullScreen && (<ShowCommnets post={selectedPost} onClose={closeFullScreen} />)}
     </div>
   );
 };

@@ -87,16 +87,18 @@ export const getPosts = async (req,res) => {
   export const CreateComment = async (req, res) =>{
     try {
         const userId = req.user._id;
-        const postId = req.params;
+        const { postId } = req.params; //
         const {comment} = req.body;
     
         if (!comment || comment.trim() === '') {
+            console.log("exited")
             return res.status(400).json({ error: "Comment content cannot be empty." });
         }
     
         const post = await Post.findById(postId);
     
         if (!post) {
+            console.log("post not found")
             return res.status(404).json({ error: "Post not found." });
         }
     
@@ -126,14 +128,15 @@ export const getPosts = async (req,res) => {
 
   export const GetCommnets = async (req,res) =>{
     try {
-        const postid = req.params;
+        const { postId } = req.params; //
 
-        const post = await Post.findById(postid);
+        const post = await Post.findById(postId).populate('comments.user', 'userName profilePic');
 
         if (!post) {
             return res.status(404).json({ error: "Post not found." });
         }
-        const sorted = post.comments.sort({ createdAt: -1 })
+        const sorted = (post.comments || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
 
         res.status(200).json({message:"comments fetch success", Comments:sorted});
 
