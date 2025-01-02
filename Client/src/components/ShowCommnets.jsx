@@ -33,7 +33,7 @@ try {
       <div className="h-[70%] w-[70%] bg-white rounded-md flex overflow-hidden ">
         <div
           id="postImageContainer"
-          className="h-full w-[50%] bg-yellow-100 overflow-hidden"
+          className="  h-0 md:h-full w-0 md:w-[50%] bg-yellow-100 overflow-hidden"
         >
           <img
             src={post?.postImage}
@@ -41,25 +41,25 @@ try {
             className="h-full w-full object-cover"
           />
         </div>
-        <div className="h-full w-[50%]  bg-white flex flex-col ">
-          <div className="h-[15%] w-full flex items-center gap-5 p-2  border-b-[1px] border-zinc-800 ">
-            <div className="h-10 w-10 bg-red-600 rounded-full overflow-hidden">
+        <div className="h-full w-full md:w-[50%]  bg-white flex flex-col ">
+        <div className="h-[15%] w-full flex items-center gap-5 p-2   border-b-[1px] border-zinc-800 ">
+            <div className="h-10 w-10 bg-red-600 rounded-full overflow-hidden border-[2px]  border-black">
               <img
                 src={post?.auther?.profilePic}
                 alt="autherDp"
                 className="h-full w-full object-cover"
               />
             </div>
-            <h1 className="text-black ">{post?.auther?.userName}</h1>
+            <h1 className="text-black font-bold">{post?.auther?.userName}</h1>
           </div>
-          <div className="h-[70%] w-full overflow-auto flex flex-col gap-2 p-2">
+          <div className="h-[70%] w-full overflow-auto flex flex-col gap-2 p-2 bg-zinc-200">
            {allComments.length === 0 ? (
-             <div className="h-full w-full bg-zinc-100 flex  justify-center items-center">
+             <div className="h-full w-full  flex  justify-center items-center">
              <h1>No Comments to show</h1>
            </div>
            ) : 
            allComments.map((comment)=>(
-            <div className="h-20 w-full rounded-xl  border-[1px] border-zinc-800 px-2 overflow-auto">
+            <div className="h-20 w-full rounded-xl  border-[1px] border-zinc-800 px-2 bg-white overflow-auto">
             <div className="h-[50%] w-full  flex items-center py-2 gap-2">
               <div className="h-8 w-8 rounded-full overflow-hidden  bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 p-[2px] ">
                 <div className="h-full w-full  rounded-full overflow-hidden"><img src={comment?.user?.profilePic} alt="" className="h-full w-full object-cover" /></div>

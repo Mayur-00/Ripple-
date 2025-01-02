@@ -12,11 +12,9 @@ const ProfilePage = () => {
   useEffect(() => {
     getPost();
     checkAuth()
-  }, [getPost, authUser, checkAuth]);
+  }, [getPost, authUser, checkAuth,]);
 
-  const Logout = () => {
-    logout();
-  };
+ 
 
   return (
     <div className="flex  h-screen w-full bg-white relative overflow-hidden ">
@@ -44,7 +42,7 @@ const ProfilePage = () => {
                   </button>
                 </Link>
                 <button
-                  onClick={Logout}
+                  onClick={logout}
                   className="h-8 md:h-8 w-20 md:w-32 ml-0 md:ml-5 text-sm  rounded-md bg-zinc-300 text-red-600"
                 >
                   Log Out

@@ -94,7 +94,7 @@ export const usePostStore = create((set)=>({
 
             const res = await axiosInstanace.get(`/user/getComments/${postId}`);
             set({allComments:res.data.Comments});
-            toast.success("comments fetched successfully")
+            // toast.success("comments fetched successfully")
 
         } catch (error) {
             toast.error("unable to fetch comments")

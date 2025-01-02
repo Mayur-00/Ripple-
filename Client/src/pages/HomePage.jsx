@@ -41,6 +41,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getPostsForFeed();
+    checkAuth()
   }, [getPostsForFeed]);
 
   const handleFollow = async (data) => {

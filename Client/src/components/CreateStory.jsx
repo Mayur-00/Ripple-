@@ -8,7 +8,7 @@ const CreateStory = ({ onClose, data }) => {
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
 
-const {createStory,AuthUserStory} = useStoryStore()
+  const { createStory, AuthUserStory, isCreatingStory } = useStoryStore();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -33,11 +33,11 @@ const {createStory,AuthUserStory} = useStoryStore()
 
   const handleCreatePost = async () => {
     try {
-     await createStory({
-      image:imagePreview
-     })
+      await createStory({
+        image: imagePreview,
+      });
+      onClose()
     } catch (error) {
-
       console.log(`ERROR IN CREATE story FUNCTION: ${error}`);
     }
   };
@@ -57,6 +57,9 @@ const {createStory,AuthUserStory} = useStoryStore()
             disabled={!text.trim() && !imagePreview}
             onClick={handleCreatePost}
           >
+            {isCreatingStory && (
+              <span className="loading loading-spinner loading-xs"></span>
+            )}
             Publish
           </button>
         </div>
@@ -76,25 +79,24 @@ const {createStory,AuthUserStory} = useStoryStore()
               onClick={() => fileInputRef.current?.click()}
             >
               {imagePreview ? (
-            
-                  <div className="h-[100%] w-[100%] relative">
-                    <img
-                      src={imagePreview}
-                      alt="preview"
-                      className="w-full h-full object-cover rounded border border-zinc-700"
-                    />
-                    <button
-                      onClick={removeImage}
-                      className=" absolute top-1 right-1 w-5 h-5 rounded-full bg-base-300 
+                <div className="h-[100%] w-[100%] relative">
+                  <img
+                    src={imagePreview}
+                    alt="preview"
+                    className="w-full h-full object-cover rounded border border-zinc-700"
+                  />
+                  <button
+                    onClick={removeImage}
+                    className=" absolute top-1 right-1 w-5 h-5 rounded-full bg-base-300 
                              flex items-center justify-center "
-                      type="button"
-                    >
-                      <X className="size-3" />
-                    </button>
-                  </div>
-         
-              ) : (<div>Click Here Upload Image</div>) }
-              
+                    type="button"
+                  >
+                    <X className="size-3" />
+                  </button>
+                </div>
+              ) : (
+                <div>Click Here Upload Image</div>
+              )}
             </button>
           </div>
         </form>
